@@ -1,6 +1,42 @@
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Entrar</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="error-message">
+                    <p>Usuário ou senha incorretos. Tente novamente.</p>
+                </div>
+            {% endif %}
+
+            <label for="id_username">Usuário:</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="error-message">
+                    {{ form.username.errors }}
+                </div>
+            {% endif %}
+
+            <label for="id_password">Senha:</label>
+            {{ form.password }}
+            {% if form.password.errors %}
+                <div class="error-message">
+                    {{ form.password.errors }}
+                </div>
+            {% endif %}
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>
